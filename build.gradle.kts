@@ -10,6 +10,12 @@ dependencies {
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.playwright)
 }
+vaadin {
+    productionMode = gradle.startParameter.taskNames.any {
+        it.contains("bootJar")
+        it.contains("bootBuildImage")
+    }
+}
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(25))
@@ -48,4 +54,7 @@ tasks.jacocoTestCoverageVerification {
 }
 tasks.check {
     finalizedBy(tasks.jacocoTestCoverageVerification)
+}
+tasks.test {
+    dependsOn(tasks.vaadinBuildFrontend)
 }
