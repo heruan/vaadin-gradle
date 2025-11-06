@@ -10,6 +10,9 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright/java:v1.55.0-noble
+      options: --user 1001
     steps:
       - name: Check out branch
         uses: actions/checkout@v4
@@ -20,14 +23,6 @@ jobs:
           distribution: ${{ env.JAVA_DISTRIBUTION }}
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-      - name: Install Playwright OS dependencies
-        run: |
-          npm -g install playwright@latest
-          npx playwright install-deps
       - name: Run tests
         run: |
           ./gradlew check
