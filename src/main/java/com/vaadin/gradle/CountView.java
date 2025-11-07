@@ -8,13 +8,13 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.signals.NumberSignal;
 
-@Route("count")
+@Route("")
 public class CountView extends VerticalLayout {
 
     CountView() {
         var count = new NumberSignal();
         var status = new H1();
-        bind(status, count, (_, _) -> status.setText(String.valueOf(count.value())));
+        bind(status, count, (owner, value) -> owner.setText(String.valueOf(value)));
         add(status, new Button("Increment", e -> count.incrementBy(1)));
     }
 }

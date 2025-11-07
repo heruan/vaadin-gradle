@@ -19,7 +19,7 @@ class CountViewTest {
 
     @BeforeEach
     void navigate(Page page, @LocalServerPort int port) {
-        page.navigate("http://localhost:" + port + "/count");
+        page.navigate("http://localhost:" + port);
     }
 
     @Test

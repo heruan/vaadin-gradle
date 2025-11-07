@@ -11,6 +11,7 @@ dependencies {
     testImplementation(libs.playwright)
 }
 vaadin {
+    // Default to production mode for JARs and Docker images
     productionMode = gradle.startParameter.taskNames.any {
         it.contains("bootJar")
         it.contains("bootBuildImage")
@@ -24,7 +25,7 @@ java {
 spotless {
     java {
         endWithNewline()
-        palantirJavaFormat("2.81.0")
+        palantirJavaFormat()
         removeUnusedImports()
         forbidWildcardImports()
     }
@@ -32,7 +33,7 @@ spotless {
 testing {
     suites {
         val test by getting(JvmTestSuite::class) {
-            useJUnitJupiter("6.0.1")
+            useJUnitJupiter()
             targets {
                 all {
                     testTask.configure {
@@ -47,14 +48,17 @@ tasks.jacocoTestCoverageVerification {
     violationRules {
         rule {
             limit {
+                // Set minimum coverage to 80%
                 minimum = "0.8".toBigDecimal()
             }
         }
     }
 }
 tasks.check {
+    // Ensure minimum code coverage on check lifecycle phase
     finalizedBy(tasks.jacocoTestCoverageVerification)
 }
 tasks.test {
+    // Build frontend before tests to allow tests to run in production mode
     dependsOn(tasks.vaadinBuildFrontend)
 }
