@@ -6,9 +6,13 @@ plugins {
     alias(libs.plugins.spotless)
 }
 dependencies {
-    implementation(libs.vaadin.spring.boot.starter)
+    implementation(libs.vaadin.spring.boot.starter) {
+        // Exclude vaadin-dev to add it only for development
+        exclude(group = "com.vaadin", module = "vaadin-dev")
+    }
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.playwright)
+    developmentOnly(libs.vaadin.dev)
 }
 vaadin {
     // Default to production mode for JARs and Docker images

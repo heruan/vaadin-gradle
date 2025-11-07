@@ -10,6 +10,7 @@ spring = { id = "org.springframework.boot", version.ref = "spring" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 
 [libraries]
+vaadin-dev = { module = "com.vaadin:vaadin-dev", version.ref = "vaadin" }
 vaadin-spring-boot-starter = { module = "com.vaadin:vaadin-spring-boot-starter", version.ref = "vaadin" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring" }
 playwright = { module = "com.microsoft.playwright:playwright", version.ref = "playwright" }
